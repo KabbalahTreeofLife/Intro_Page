@@ -1,24 +1,12 @@
 (function() {
   var loadEl = document.getElementById('load');
-  var loadNo = loadEl.querySelector('#load-no div');
-  var pct = 0;
-  var interval = setInterval(function() {
-    pct += Math.floor(Math.random() * 12) + 4;
-    if (pct >= 100) {
-      pct = 100;
-      clearInterval(interval);
-      loadNo.textContent = '100%';
-      setTimeout(function() {
-        loadEl.style.transition = 'opacity .6s ease';
-        loadEl.style.opacity = '0';
-        setTimeout(function() {
-          loadEl.style.display = 'none';
-        }, 600);
-      }, 400);
-      return;
-    }
-    loadNo.textContent = pct + '%';
-  }, 120);
+  setTimeout(function() {
+    loadEl.style.transition = 'opacity 1s ease';
+    loadEl.style.opacity = '0';
+    setTimeout(function() {
+      loadEl.style.display = 'none';
+    }, 1000);
+  }, 3500);
 })();
 
 (function() {
@@ -71,6 +59,8 @@
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
   var width, height, columns, drops;
+  var startTime = Date.now();
+  var introDuration = 4000;
 
   function resize() {
     width = window.innerWidth;
@@ -87,23 +77,33 @@
   var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
 
   function draw() {
-    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    var elapsed = Date.now() - startTime;
+    var t = Math.min(elapsed / introDuration, 1);
+    var ease = 1 - Math.pow(1 - t, 3);
+
+    ctx.fillStyle = 'rgba(0,0,0,0.06)';
     ctx.fillRect(0, 0, width, height);
 
-    for (var i = 0; i < drops.length; i++) {
+    var speed = 0.15 + ease * 0.65;
+
+    for (var i = 0; i < columns; i++) {
+      if (i / columns > ease) continue;
       var char = chars[Math.floor(Math.random() * chars.length)];
       var bright = Math.random();
-      ctx.fillStyle = bright > 0.9 ? 'rgba(180,255,180,0.9)' : 'rgba(0,255,65,0.35)';
+      var alpha = 0.15 + ease * 0.25;
+      ctx.fillStyle = bright > 0.9 ? 'rgba(180,255,180,0.9)' : 'rgba(0,255,65,' + alpha + ')';
       ctx.font = '13px monospace';
       ctx.fillText(char, i * 22, drops[i] * 20);
       if (drops[i] * 20 > height && Math.random() > 0.98) {
         drops[i] = 0;
       }
-      drops[i] += 0.4 + Math.random() * 0.4;
+      drops[i] += (0.3 + Math.random() * 0.4) * speed;
     }
+
+    setTimeout(draw, 40);
   }
 
   resize();
-  setInterval(draw, 50);
+  draw();
   window.addEventListener('resize', resize);
 })();

@@ -67,29 +67,10 @@ body::after {
 #load {
   z-index: 9996;
   position: fixed;
-  color: #00ff41;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 #load-bg {
   position: absolute;
   background: #000;
-}
-#load-no {
-  position: relative;
-  letter-spacing: .05em;
-  overflow: hidden;
-}
-#load-no div {
-  will-change: transform;
-  transform: translate3d(0, 300%, 0);
-}
-@media (min-aspect-ratio: 16/9) {
-  #load-no { font-size: 1.6667vh; line-height: 2.0833vh; }
-}
-@media (max-aspect-ratio: 16/9) {
-  #load-no { font-size: .9375vw; line-height: 1.1719vw; }
 }
 
 nav {
