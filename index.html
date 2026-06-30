@@ -2,145 +2,167 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=5">
+<meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" href="styles.css">
 <title>BSSE – 2 Team Portfolio</title>
+<meta name="description" content="Team portfolio for BSSE-2 – Bryan Del Rosario, Marco Castillo, Chris Almodiente.">
+<meta name="robots" content="all">
 </head>
 <body>
+
+<div id="load">
+  <div id="load-bg"></div>
+  <div id="load-no"><div>0%</div></div>
+</div>
 
 <nav>
   <span class="logo">BSSE–2</span>
   <div class="nav-links">
-    <a href="#" onclick="showSlide(0); return false;">Bryan</a>
-    <a href="#" onclick="showSlide(1); return false;">Marco</a>
-    <a href="#" onclick="showSlide(2); return false;">Chris</a>
+    <a href="#" data-slide="0">Bryan</a>
+    <a href="#" data-slide="1">Marco</a>
+    <a href="#" data-slide="2">Chris</a>
   </div>
 </nav>
 
 <section class="hero">
-  <p class="hero-tag">BSSE – 2 · 2025–2026</p>
-  <h1>Team Portfolio</h1>
-  <p class="hero-desc">Three developers, one cohort. Bryan, Marco, and Chris — building skills, shipping code, and growing together in software engineering.</p>
+  <div class="hero-tag">BSSE – 2 · 2025–2026</div>
+  <h1>
+    <span>Team</span><br>
+    <span class="highlight">Portfolio</span>
+  </h1>
+  <p>Three developers, one cohort. Bryan, Marco, and Chris — building skills, shipping code, and growing together in software engineering.</p>
 </section>
 
-<div class="slider">
-  <button class="slider-btn prev" onclick="changeSlide(-1)">&#8592;</button>
-  <button class="slider-btn next" onclick="changeSlide(1)">&#8594;</button>
+<div class="carousel">
+  <button class="carousel-btn carousel-btn--prev" aria-label="Previous member">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M13 4L7 10L13 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button class="carousel-btn carousel-btn--next" aria-label="Next member">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
 
-  <div class="slider-track" id="sliderTrack">
-    <section class="slide" id="bryan">
-      <div class="slide-header">
-        <span class="slide-num">01</span>
-        <h2>Bryan</h2>
+  <div class="carousel-track">
+    <section class="section carousel-slide" id="bryan">
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <h2 class="section-title">Bryan</h2>
       </div>
 
-      <div class="card">
-        <div class="card-left">
-          <div class="initial">B</div>
-          <div class="name">Bryan M.<br>Del Rosario</div>
-          <div class="role">BSSE – 2</div>
-          <div class="badges">
-            <span>Mar 3, 2006</span>
-            <span>20 yo</span>
-            <span>San Fernando, San Jose, Antique</span>
+      <div class="team-grid">
+        <div class="member">
+          <div class="member-visual">
+            <div class="member-initial">B</div>
+            <div class="member-name">Bryan M.<br>Del Rosario</div>
+            <div class="member-role">BSSE – 2</div>
+            <div class="member-meta">
+              <span>Mar 3, 2006</span>
+              <span>20 yo</span>
+              <span>San Fernando, San Jose, Antique</span>
+            </div>
           </div>
-        </div>
-        <div class="card-right">
-          <h3>Hobbies & Interests</h3>
-          <ul>
-            <li>Valorant, Roblox, Genshin Impact, League of Legends</li>
-            <li>Manhwa, Manga, Manhua — Real Estate Developer, GTO, Golden Boy, Nanomachine</li>
-            <li>Played Sepak Takraw for 4 years in JHS</li>
-          </ul>
+          <div class="member-details">
+            <h3>Hobbies & Interests</h3>
+            <ul>
+              <li>Valorant, Roblox, Genshin Impact, League of Legends</li>
+              <li>Manhwa, Manga, Manhua — Real Estate Developer, GTO, Golden Boy, Nanomachine</li>
+              <li>Played Sepak Takraw for 4 years in JHS</li>
+            </ul>
 
-          <h3>Retrospective</h3>
-          <p>"I learned a lot about Calculus Integral and DE. I learned to code Next.js, NextAuth, Tailwind CSS, and more."</p>
+            <h3>Retrospective</h3>
+            <p>"I learned a lot about Calculus Integral and DE. I learned to code Next.js, NextAuth, Tailwind CSS, and more."</p>
 
-          <div class="tags">
-            <span>Next.js</span>
-            <span>NextAuth</span>
-            <span>Tailwind</span>
-            <span>Calculus</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="slide" id="marco">
-      <div class="slide-header">
-        <span class="slide-num">02</span>
-        <h2>Marco</h2>
-      </div>
-
-      <div class="card">
-        <div class="card-left">
-          <div class="initial">M</div>
-          <div class="name">Marco Daniel<br>S. Castillo</div>
-          <div class="role">BSSE – 2</div>
-          <div class="badges">
-            <span>Jun 22, 2007</span>
-            <span>19 yo</span>
-            <span>Zone 3, Brgy. Bitoon, Jaro, Iloilo</span>
-          </div>
-        </div>
-        <div class="card-right">
-          <h3>Hobbies & Interests</h3>
-          <ul>
-            <li>Reading novels — Lord of the Mysteries, Reverend Insanity</li>
-            <li>Listening to music — OST, J-Rock</li>
-            <li>Punishing: Gray Raven</li>
-            <li>Played Football for 1 year in JHS</li>
-            <li>Coding</li>
-          </ul>
-
-          <h3>Retrospective</h3>
-          <p>"Application of OOP, Calculus Integral, Review."</p>
-
-          <div class="tags">
-            <span>OOP</span>
-            <span>Calculus</span>
-            <span>J-Rock</span>
-            <span>Novels</span>
+            <div class="tags">
+              <span>Next.js</span>
+              <span>NextAuth</span>
+              <span>Tailwind</span>
+              <span>Calculus</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="slide" id="chris">
-      <div class="slide-header">
-        <span class="slide-num">03</span>
-        <h2>Chris</h2>
+    <section class="section carousel-slide" id="marco">
+      <div class="section-header">
+        <div class="section-number">02</div>
+        <h2 class="section-title">Marco</h2>
       </div>
 
-      <div class="card">
-        <div class="card-left">
-          <div class="initial">C</div>
-          <div class="name">Chris<br>Almodiente</div>
-          <div class="role">BSSE – 2</div>
-          <div class="badges">
-            <span>Aug 18, 2007</span>
-            <span>18 yo</span>
+      <div class="team-grid">
+        <div class="member">
+          <div class="member-visual">
+            <div class="member-initial">M</div>
+            <div class="member-name">Marco Daniel<br>S. Castillo</div>
+            <div class="member-role">BSSE – 2</div>
+            <div class="member-meta">
+              <span>Jun 22, 2007</span>
+              <span>19 yo</span>
+              <span>Zone 3, Brgy. Bitoon, Jaro, Iloilo</span>
+            </div>
+          </div>
+          <div class="member-details">
+            <h3>Hobbies & Interests</h3>
+            <ul>
+              <li>Reading novels — Lord of the Mysteries, Reverend Insanity</li>
+              <li>Listening to music — OST, J-Rock</li>
+              <li>Punishing: Gray Raven</li>
+              <li>Played Football for 1 year in JHS</li>
+              <li>Coding</li>
+            </ul>
+
+            <h3>Retrospective</h3>
+            <p>"Application of OOP, Calculus Integral, Review."</p>
+
+            <div class="tags">
+              <span>OOP</span>
+              <span>Calculus</span>
+              <span>J-Rock</span>
+              <span>Novels</span>
+            </div>
           </div>
         </div>
-        <div class="card-right">
-          <h3>Retrospective</h3>
-          <p><em>No retrospective provided.</em></p>
+      </div>
+    </section>
 
-          <div class="tags">
-            <span>BSSE – 2</span>
+    <section class="section carousel-slide" id="chris">
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <h2 class="section-title">Chris</h2>
+      </div>
+
+      <div class="team-grid">
+        <div class="member">
+          <div class="member-visual">
+            <div class="member-initial">C</div>
+            <div class="member-name">Chris<br>Almodiente</div>
+            <div class="member-role">BSSE – 2</div>
+            <div class="member-meta">
+              <span>Aug 18, 2007</span>
+              <span>18 yo</span>
+            </div>
+          </div>
+          <div class="member-details">
+            <h3>Retrospective</h3>
+            <p><em>No retrospective provided.</em></p>
+
+            <div class="tags">
+              <span>BSSE – 2</span>
+            </div>
           </div>
         </div>
       </div>
     </section>
   </div>
 
-  <div class="slider-dots">
-    <span class="dot active" onclick="showSlide(0)"></span>
-    <span class="dot" onclick="showSlide(1)"></span>
-    <span class="dot" onclick="showSlide(2)"></span>
+  <div class="carousel-dots">
+    <button class="carousel-dot active" data-index="0" aria-label="Bryan"></button>
+    <button class="carousel-dot" data-index="1" aria-label="Marco"></button>
+    <button class="carousel-dot" data-index="2" aria-label="Chris"></button>
   </div>
 </div>
 
