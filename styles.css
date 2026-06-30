@@ -80,7 +80,8 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  mix-blend-mode: difference;
+  background: #141414;
+  border-bottom: 1px solid rgba(255,255,255,.06);
 }
 nav .logo {
   font-weight: 600;
@@ -129,6 +130,7 @@ nav .nav-links a.active {
 .hero h1 .highlight {
   color: transparent;
   -webkit-text-stroke: 1px #fff;
+  letter-spacing: -.01em;
 }
 .hero p {
   font-size: 16px;
