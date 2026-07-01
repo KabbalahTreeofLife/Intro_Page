@@ -1,10 +1,6 @@
 
 html {
-  -webkit-text-size-adjust: none;
-  -webkit-font-smoothing: antialiased;
   cursor: default;
-  -webkit-tap-highlight-color: transparent;
-  scroll-behavior: smooth;
 }
 
 * {
@@ -54,7 +50,6 @@ nav {
   left: 0;
   width: 100%;
   padding: 24px 40px;
-  box-sizing: border-box;
   z-index: 9995;
   display: flex;
   justify-content: space-between;
@@ -89,7 +84,6 @@ nav .nav-links a.active {
   flex-direction: column;
   justify-content: center;
   padding: 120px 40px 80px;
-  box-sizing: border-box;
   position: relative;
 }
 .hero-tag {
@@ -123,7 +117,6 @@ nav .nav-links a.active {
 
 .section {
   padding: 120px 80px 100px;
-  box-sizing: border-box;
 }
 .section-header {
   margin-bottom: 64px;
@@ -168,7 +161,6 @@ nav .nav-links a.active {
   min-width: 100%;
   width: 100%;
   flex-shrink: 0;
-  box-sizing: border-box;
   overflow: hidden;
 }
 

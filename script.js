@@ -12,87 +12,43 @@ track.appendChild(firstClone);
 track.insertBefore(lastClone, slides[0]);
 
 var currentSlide = 1;
-var currentUser = 0;
 
 track.style.transition = 'none';
 track.style.transform = 'translateX(-100%)';
-setTimeout(function() {
-  track.style.transition = 'transform .5s ease-in-out';
-}, 20);
+setTimeout(function() { track.style.transition = 'transform .5s ease-in-out'; }, 20);
 
-function updateDotsAndNav() {
-  for (var i = 0; i < dots.length; i++) {
-    if (i === currentUser) {
-      dots[i].classList.add('active');
-      navLinks[i].classList.add('active');
-    } else {
-      dots[i].classList.remove('active');
-      navLinks[i].classList.remove('active');
-    }
-  }
-}
-
-function snapTo(index) {
-  track.style.transition = 'none';
-  currentSlide = index;
-  track.style.transform = 'translateX(-' + (index * 100) + '%)';
-  setTimeout(function() {
-    track.style.transition = 'transform .5s ease-in-out';
-  }, 20);
-}
-
-function goTo(newIndex) {
-  if (newIndex < 0) {
-    newIndex = total - 1;
-  }
-  if (newIndex >= total) {
-    newIndex = 0;
-  }
-  if (newIndex === currentUser) {
-    return;
-  }
-
-  var prev = currentUser;
-  currentUser = newIndex;
-  updateDotsAndNav();
-
-  var goingForward;
-  if (prev === total - 1 && newIndex === 0) {
-    goingForward = true;
-  } else if (prev === 0 && newIndex === total - 1) {
-    goingForward = false;
-  } else {
-    goingForward = newIndex > prev;
-  }
-
-  if (goingForward) {
-    if (prev === total - 1 && newIndex === 0) {
-      currentSlide = total + 1;
-    } else {
-      currentSlide = currentUser + 1;
-    }
-  } else {
-    if (prev === 0 && newIndex === total - 1) {
-      currentSlide = 0;
-    } else {
-      currentSlide = currentUser + 1;
-    }
-  }
-
+function moveCarousel() {
   track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+  updateIndicators();
 }
 
-track.addEventListener('transitionend', function(e) {
-  if (e.propertyName !== 'transform') return;
-  if (currentSlide === 0) {
-    snapTo(total);
-  } else if (currentSlide === total + 1) {
-    snapTo(1);
+function updateIndicators() {
+  var userIndex = currentSlide - 1;
+  if (currentSlide === 0) userIndex = total - 1;
+  if (currentSlide === total + 1) userIndex = 0;
+
+  for (var i = 0; i < dots.length; i++) {
+    dots[i].classList.toggle('active', i === userIndex);
+    navLinks[i].classList.toggle('active', i === userIndex);
   }
+}
+
+track.addEventListener('transitionend', function() {
+  if (currentSlide === 0) {
+    track.style.transition = 'none';
+    currentSlide = total;
+    track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+  } else if (currentSlide === total + 1) {
+    track.style.transition = 'none';
+    currentSlide = 1;
+    track.style.transform = 'translateX(-100%)';
+  }
+  track.offsetHeight; // Force reflow
+  track.style.transition = 'transform .5s ease-in-out';
 });
 
-prevBtn.addEventListener('click', function() { goTo(currentUser - 1); });
-nextBtn.addEventListener('click', function() { goTo(currentUser + 1); });
+nextBtn.addEventListener('click', function() { currentSlide++; moveCarousel(); });
+prevBtn.addEventListener('click', function() { currentSlide--; moveCarousel(); });
 
 for (var i = 0; i < dots.length; i++) {
   dots[i].addEventListener('click', makeHandler(i));
@@ -104,29 +60,35 @@ for (var i = 0; i < navLinks.length; i++) {
 
 function makeHandler(index) {
   return function(e) {
+    currentSlide = index + 1;
     if (e.target.tagName === 'A') e.preventDefault();
-    goTo(index);
+    moveCarousel();
   };
 }
 
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'ArrowLeft') goTo(currentUser - 1);
-  if (e.key === 'ArrowRight') goTo(currentUser + 1);
+  if (e.key === 'ArrowLeft') { currentSlide--; moveCarousel(); }
+  if (e.key === 'ArrowRight') { currentSlide++; moveCarousel(); }
 });
 
+// --- MATRIX CANVAS (FIXED) ---
 var canvas = document.getElementById('matrixCanvas');
 if (canvas) {
   var ctx = canvas.getContext('2d');
-  var cols, drops;
+  var columns = [];
   var chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789';
+  
+  var fontSize = 13;
+  var charWidth = 22;
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    cols = Math.floor(canvas.width / 22);
-    drops = [];
-    for (var i = 0; i < cols; i++) {
-      drops[i] = Math.floor(Math.random() * -120);
+    var colCount = Math.floor(canvas.width / charWidth);
+    columns = [];
+    for (var i = 0; i < colCount; i++) {
+      // Keep initial offset reasonable (between 0 and -200px) so rain starts immediately
+      columns[i] = Math.random() * -200; 
     }
   }
 
@@ -134,16 +96,22 @@ if (canvas) {
     ctx.fillStyle = 'rgba(0,0,0,0.06)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    for (var i = 0; i < cols; i++) {
+    var colCount = columns.length;
+
+    for (var i = 0; i < colCount; i++) {
       var char = chars[Math.floor(Math.random() * chars.length)];
-      var bright = Math.random();
-      ctx.fillStyle = bright > 0.9 ? 'rgba(180,255,180,0.9)' : 'rgba(0,255,65,0.35)';
-      ctx.font = '13px monospace';
-      ctx.fillText(char, i * 22, drops[i] * 20);
-      if (drops[i] * 20 > canvas.height && Math.random() > 0.98) {
-        drops[i] = 0;
+      ctx.fillStyle = Math.random() > 0.9 ? 'rgba(180,255,180,0.9)' : 'rgba(0,255,65,0.35)';
+      ctx.font = fontSize + 'px monospace';
+      
+      // Draw text directly at the pixel value stored in columns[i]
+      ctx.fillText(char, i * charWidth, columns[i]);
+      
+      if (columns[i] > canvas.height && Math.random() > 0.98) {
+        columns[i] = 0;
       }
-      drops[i] += 0.4 + Math.random() * 0.4;
+      
+      // Fixed falling speed calculation (adds roughly 8px to 16px per frame)
+      columns[i] += (8 + Math.random() * 8);
     }
   }
 
