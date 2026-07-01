@@ -43,7 +43,7 @@ track.addEventListener('transitionend', function() {
     currentSlide = 1;
     track.style.transform = 'translateX(-100%)';
   }
-  track.offsetHeight; // Force reflow
+  track.offsetHeight;
   track.style.transition = 'transform .5s ease-in-out';
 });
 
@@ -71,7 +71,6 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowRight') { currentSlide++; moveCarousel(); }
 });
 
-// --- MATRIX CANVAS (FIXED) ---
 var canvas = document.getElementById('matrixCanvas');
 if (canvas) {
   var ctx = canvas.getContext('2d');
@@ -87,7 +86,6 @@ if (canvas) {
     var colCount = Math.floor(canvas.width / charWidth);
     columns = [];
     for (var i = 0; i < colCount; i++) {
-      // Keep initial offset reasonable (between 0 and -200px) so rain starts immediately
       columns[i] = Math.random() * -200; 
     }
   }
@@ -103,14 +101,12 @@ if (canvas) {
       ctx.fillStyle = Math.random() > 0.9 ? 'rgba(180,255,180,0.9)' : 'rgba(0,255,65,0.35)';
       ctx.font = fontSize + 'px monospace';
       
-      // Draw text directly at the pixel value stored in columns[i]
       ctx.fillText(char, i * charWidth, columns[i]);
       
       if (columns[i] > canvas.height && Math.random() > 0.98) {
         columns[i] = 0;
       }
       
-      // Fixed falling speed calculation (adds roughly 8px to 16px per frame)
       columns[i] += (8 + Math.random() * 8);
     }
   }
